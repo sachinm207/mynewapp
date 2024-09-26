@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDgKve7RAolNF-VmIqjOAKixV1iMKSGbmE",
@@ -12,3 +12,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+// Enable offline persistence
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log('Firebase persistence enabled');
+  })
+  .catch((error) => {
+    console.error('Error enabling Firebase persistence:', error);
+  });
+
+

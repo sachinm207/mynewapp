@@ -1,7 +1,7 @@
 'use client'
 
 import { useAuth } from './contexts/AuthContext'
-
+import PWAStatus from './components/PWAStatus'
 export default function Home() {
   const { user, loading } = useAuth();
 
@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-8 text-center">Welcome to My PWA App</h1>
-      
+      <PWAStatus />
       {user ? (
         <div className="text-center">
           <p className="text-xl mb-4">Welcome, {user.email}!</p>
