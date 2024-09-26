@@ -1,6 +1,21 @@
+'use client'
+
 import Link from 'next/link'
+import { useAuth } from '../contexts/AuthContext'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 
 export default function Navbar() {
+  const { user } = useAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      console.error('Error signing out', error);
+    }
+  };
+
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,6 +37,22 @@ export default function Navbar() {
                 About
               </Link>
             </div>
+          </div>
+          <div className="flex items-center">
+            {user ? (
+              <button onClick={handleSignOut} className="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md">
+                Sign Out
+              </button>
+            ) : (
+              <>
+                <Link href="/signin" className="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md">
+                  Sign In
+                </Link>
+                <Link href="/signup" className="text-gray-900 hover:bg-gray-200 px-3 py-2 rounded-md">
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
